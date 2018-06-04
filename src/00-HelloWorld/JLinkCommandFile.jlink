@@ -1,0 +1,6 @@
+r
+speed 4000
+device STM32F103RC
+loadbin /home/curie/stm32_pro/vscode_template_stm32f103/stm32f103rct6.hex 0x08000000
+g
+qc

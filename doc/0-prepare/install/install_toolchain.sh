@@ -1,3 +1,5 @@
+sudo apt-get install gcc-arm-none-eabi
+# gcc-arm-none-eabi是裸机
 sudo apt-get install  gcc-5-arm-linux-gnueabihf 
 sudo apt-get install  gcc-arm-linux-gnueabi
 sudo apt-get install  gcc-arm-linux-gnueabihf
