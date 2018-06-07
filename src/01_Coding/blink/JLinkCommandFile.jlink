@@ -40,7 +40,7 @@ device STM32F103RC
 #loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验35-摄像头实验/OBJ/OV7725_OV7670.hex 0x08000000
 #loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验35-摄像头实验/OBJ/OV7670.hex 0x08000000
 #loadbin /home/curie/ARM/标准例程-V3.5库函数版本/实验56-战舰STM32开发板综合实验/OBJ/IntegrateTest.hex 0x08000000
-
-loadbin /home/curie/gitcode/ARM_learning/src/06Coding/TestARM/stm32f103rct6.hex 0x08000000
+#loadbin /home/curie/ARM/亮屏/stm32f103_bright/blink/stm32f103rct6.hex 0x08000000
+loadbin /home/curie/gitcode/ARM_learning/src/01_Coding/blink/stm32f103rct6.hex 0x08000000
 g
 qc

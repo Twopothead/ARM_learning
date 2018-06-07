@@ -6,10 +6,13 @@ PROJECT_NAME := stm32f103rct6
 SDK_PATH := 
 
 
-src_qiuri_syslib := $(shell find qiuri_lib/my_system/delay -name "*.c") \
-			$(shell find qiuri_lib/my_system/sys -name "*.c") \
-			$(shell find qiuri_lib/my_system/usart -name "*.c") \
-			$(shell find qiuri_lib/my_hardware/LED -name "*.c")
+#src_qiuri_syslib := $(shell find qiuri_lib/my_system/delay -name "*.c") \
+#			$(shell find qiuri_lib/my_system/sys -name "*.c") \
+#			$(shell find qiuri_lib/my_system/usart -name "*.c") \
+#			$(shell find qiuri_lib/my_hardware/LED -name "*.c")
+
+subdirs_qiuri_syslib := $(wildcard qiuri_lib/*)
+src_qiuri_syslib := $(shell find $(subdirs_qiuri_syslib) -name "*.c")
 
 source_stm32f1_stdperiph := $(shell find system/src/stm32f1-stdperiph -name "*.c")
 
@@ -50,18 +53,26 @@ CFLAGS := -mcpu=cortex-m3 \
 FEATHER := -DSTM32F10X_HD \
            -DUSE_STDPERIPH_DRIVER \
 		   -DHSE_VALUE=8000000 
+
+recursive_sub_qiuri_syslib := $(shell find $(subdirs_qiuri_syslib) -name "*" -type d)
 # include目录
 INCLUDE := -I"include" \
            -I"system/include" \
 		   -I"system/include/cmsis" \
 		   -I"system/include/stm32f1-stdperiph" \
-	-I"qiuri_lib" \
-		-I"qiuri_lib/my_system" \
-			-I"qiuri_lib/my_system/delay" \
-			-I"qiuri_lib/my_system/sys" \
-			-I"qiuri_lib/my_system/usart" \
-		-I"qiuri_lib/my_hardware" \
-			-I"qiuri_lib/my_hardware/LED"
+		-I"qiuri_lib" \
+		$(foreach dir, $(recursive_sub_qiuri_syslib), -I"$(dir)")
+
+	#-I"qiuri_lib" \
+	#	-I"qiuri_lib/my_system" \
+	#		-I"qiuri_lib/my_system/delay" \
+	#		-I"qiuri_lib/my_system/sys" \
+	#		-I"qiuri_lib/my_system/usart" \
+	#	-I"qiuri_lib/my_hardware" \
+	#		-I"qiuri_lib/my_hardware/LED"
+#EXE := $(addprefix $(DIR_EXES)/, $(EXE))
+#	-I$(foreach $(recursive_sub_qiuri_syslib))
+
 #这里千万要注意，加了.h头文件后要把它加入搜索路径
 
 # 以下内容为自动化内容，不需要在进行修改
@@ -79,7 +90,7 @@ CC := $(SDK_PATH)arm-none-eabi-gcc
 CXX := $(SDK_PATH)arm-none-eabi-g++
 CP := $(SDK_PATH)arm-none-eabi-objcopy
 
-.PHONY: all clean jlink
+.PHONY: all clean jlink 
 
 all: $(PROJECT_NAME).hex
 	@echo "Finish"
