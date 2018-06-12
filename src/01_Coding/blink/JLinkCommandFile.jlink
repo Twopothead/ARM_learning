@@ -37,10 +37,29 @@ device STM32F103RC
 #loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验32-MPU6050六轴传感器实验/OBJ/MPU6050.hex 0x08000000
 #loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验33-无线通信实验/OBJ/NRF24L01.hex 0x08000000
 #loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验34-FLASH模拟EEPROM实验/OBJ/STMFLASH.hex 0x08000000
-#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验35-摄像头实验/OBJ/OV7725_OV7670.hex 0x08000000
 #loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验35-摄像头实验/OBJ/OV7670.hex 0x08000000
-#loadbin /home/curie/ARM/标准例程-V3.5库函数版本/实验56-战舰STM32开发板综合实验/OBJ/IntegrateTest.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验36-外部SRAM实验/OBJ/SRAM.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验37-内存管理实验/OBJ/MALLOC.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验38-SD卡_SDIO实验/OBJ/SD.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验39-FATFS实验/OBJ/FATFS.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验40-汉字显示实验/OBJ/HZ.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验41-图片显示实验/OBJ/PICTURE.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验42-照相机实验/OBJ/CAMERA.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验43-音乐播放器实验/OBJ/MUSICPLAYER.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验44-录音机实验/OBJ/RECORDER.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验45-手写识别实验/OBJ/ATK_NCR.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验46-T9拼音输入法实验/OBJ/T9INPUT.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验48-USB虚拟串口实验/OBJ/USB_VIRTURAL_COM.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验49-USB读卡器实验/OBJ/USB_CARD_READER.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验50-网络通信实验/OBJ/NET_LWIP.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验51-UCOSII实验1-1-任务调度/OBJ/UCOSII-1.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验51-UCOSII实验1-2-任务创建删除挂起恢复/OBJ/UCOSII-1-2.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验52-UCOSII实验2-信号量和邮箱/OBJ/UCOSII-2.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验53-UCOSII实验3-消息队列、信号量集和软件定时器USER/OBJ/UCOSII-3.hex 0x08000000
+#loadbin /home/curie/ARM/pro/战舰_标准例程-库函数版本/实验54-综合测试实验/OBJ/test.hex 0x08000000
 #loadbin /home/curie/ARM/亮屏/stm32f103_bright/blink/stm32f103rct6.hex 0x08000000
-loadbin /home/curie/gitcode/ARM_learning/src/01_Coding/blink/stm32f103rct6.hex 0x08000000
+#loadbin /home/curie/gitcode/stm32f103_blink/blink/stm32f103rct6.hex 0x08000000
+#loadbin /home/curie/ARM/pro/超级玛丽/Mario/stm32f103rct6.hex 0x08000000
+loadbin /home/curie/gitcode/stm32f103_blink/blink/stm32f103rct6.hex 0x08000000
 g
 qc

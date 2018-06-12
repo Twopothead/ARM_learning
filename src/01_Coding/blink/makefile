@@ -19,7 +19,6 @@ source_stm32f1_stdperiph := $(shell find system/src/stm32f1-stdperiph -name "*.c
 # 参与编译的源文件列表
 SOURCE := system/src/newlib/_cxx.cpp \
           system/src/newlib/_exit.c \
-		  system/src/newlib/_sbrk.c \
 		  system/src/newlib/_startup.c \
 		  system/src/newlib/_syscalls.c \
 		  system/src/newlib/assert.c \
@@ -32,8 +31,7 @@ SOURCE := system/src/newlib/_cxx.cpp \
 		  system/src/cmsis/vectors_stm32f10x.c  \
 		  $(source_stm32f1_stdperiph)\
 		$(src_qiuri_syslib) \
-		  src/main.c \
-		 
+		  src/main.c \		 
  
 
 # 编译选项
@@ -61,6 +59,8 @@ INCLUDE := -I"include" \
 		   -I"system/include/cmsis" \
 		   -I"system/include/stm32f1-stdperiph" \
 		-I"qiuri_lib" \
+		-I"qiuri_lib/platform" \
+		-I"src" \
 		$(foreach dir, $(recursive_sub_qiuri_syslib), -I"$(dir)")
 
 	#-I"qiuri_lib" \
@@ -79,6 +79,7 @@ INCLUDE := -I"include" \
 
 # 自动化完成
 CFLAGS += $(FEATHER) $(INCLUDE)
+CFLAGS += -std=gnu99
 
 C_SRC := $(filter %.c,$(SOURCE))
 C_OBJS := $(C_SRC:%.c=%.o)
@@ -90,10 +91,18 @@ CC := $(SDK_PATH)arm-none-eabi-gcc
 CXX := $(SDK_PATH)arm-none-eabi-g++
 CP := $(SDK_PATH)arm-none-eabi-objcopy
 
-.PHONY: all clean jlink 
+all_text := $(shell find ./ -name "*.c") $(shell find ./ -name "*.h")
+
+.PHONY: all clean jlink utf8
 
 all: $(PROJECT_NAME).hex
 	@echo "Finish"
+
+utf8:	
+	@echo "converting to UTF8..."
+	enca -L zh_CN -x UTF-8 $(all_text)
+	@echo "converting to UTF8 finished."
+
 
 $(PROJECT_NAME).hex: $(PROJECT_NAME).elf
 	@echo 'Invoking: Cross ARM GNU Create Flash Image'

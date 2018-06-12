@@ -3,56 +3,56 @@
 #include "sys.h" 
 #include "delay.h"
 //////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌĞòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßĞí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
-//ALIENTEKÕ½½¢STM32¿ª·¢°å
-//°´¼üÇı¶¯´úÂë	   
-//ÕıµãÔ­×Ó@ALIENTEK
-//¼¼ÊõÂÛÌ³:www.openedv.com
-//ĞŞ¸ÄÈÕÆÚ:2012/9/3
-//°æ±¾£ºV1.0
-//°æÈ¨ËùÓĞ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ¹ãÖİÊĞĞÇÒíµç×Ó¿Æ¼¼ÓĞÏŞ¹«Ë¾ 2009-2019
+//æœ¬ç¨‹åºåªä¾›å­¦ä¹ ä½¿ç”¨ï¼Œæœªç»ä½œè€…è®¸å¯ï¼Œä¸å¾—ç”¨äºå…¶å®ƒä»»ä½•ç”¨é€”
+//ALIENTEKæˆ˜èˆ°STM32å¼€å‘æ¿
+//æŒ‰é”®é©±åŠ¨ä»£ç 	   
+//æ­£ç‚¹åŸå­@ALIENTEK
+//æŠ€æœ¯è®ºå›:www.openedv.com
+//ä¿®æ”¹æ—¥æœŸ:2012/9/3
+//ç‰ˆæœ¬ï¼šV1.0
+//ç‰ˆæƒæ‰€æœ‰ï¼Œç›—ç‰ˆå¿…ç©¶ã€‚
+//Copyright(C) å¹¿å·å¸‚æ˜Ÿç¿¼ç”µå­ç§‘æŠ€æœ‰é™å…¬å¸ 2009-2019
 //All rights reserved									  
 //////////////////////////////////////////////////////////////////////////////////  
 								    
-//°´¼ü³õÊ¼»¯º¯Êı
-void KEY_Init(void) //IO³õÊ¼»¯
+//æŒ‰é”®åˆå§‹åŒ–å‡½æ•°
+void KEY_Init(void) //IOåˆå§‹åŒ–
 { 
  	GPIO_InitTypeDef GPIO_InitStructure;
  
- 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOE,ENABLE);//Ê¹ÄÜPORTA,PORTEÊ±ÖÓ
+ 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOE,ENABLE);//ä½¿èƒ½PORTA,PORTEæ—¶é’Ÿ
 
 	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4;//KEY0-KEY2
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; //ÉèÖÃ³ÉÉÏÀ­ÊäÈë
- 	GPIO_Init(GPIOE, &GPIO_InitStructure);//³õÊ¼»¯GPIOE2,3,4
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; //è®¾ç½®æˆä¸Šæ‹‰è¾“å…¥
+ 	GPIO_Init(GPIOE, &GPIO_InitStructure);//åˆå§‹åŒ–GPIOE2,3,4
 
-	//³õÊ¼»¯ WK_UP-->GPIOA.0	  ÏÂÀ­ÊäÈë
+	//åˆå§‹åŒ– WK_UP-->GPIOA.0	  ä¸‹æ‹‰è¾“å…¥
 	GPIO_InitStructure.GPIO_Pin  = GPIO_Pin_0;
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; //PA0ÉèÖÃ³ÉÊäÈë£¬Ä¬ÈÏÏÂÀ­	  
-	GPIO_Init(GPIOA, &GPIO_InitStructure);//³õÊ¼»¯GPIOA.0
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; //PA0è®¾ç½®æˆè¾“å…¥ï¼Œé»˜è®¤ä¸‹æ‹‰	  
+	GPIO_Init(GPIOA, &GPIO_InitStructure);//åˆå§‹åŒ–GPIOA.0
 
 }
-//°´¼ü´¦Àíº¯Êı
-//·µ»Ø°´¼üÖµ
-//mode:0,²»Ö§³ÖÁ¬Ğø°´;1,Ö§³ÖÁ¬Ğø°´;
-//0£¬Ã»ÓĞÈÎºÎ°´¼ü°´ÏÂ
-//1£¬KEY0°´ÏÂ
-//2£¬KEY1°´ÏÂ
-//3£¬KEY2°´ÏÂ 
-//4£¬KEY3°´ÏÂ WK_UP
-//×¢Òâ´Ëº¯ÊıÓĞÏìÓ¦ÓÅÏÈ¼¶,KEY0>KEY1>KEY2>KEY3!!
+//æŒ‰é”®å¤„ç†å‡½æ•°
+//è¿”å›æŒ‰é”®å€¼
+//mode:0,ä¸æ”¯æŒè¿ç»­æŒ‰;1,æ”¯æŒè¿ç»­æŒ‰;
+//0ï¼Œæ²¡æœ‰ä»»ä½•æŒ‰é”®æŒ‰ä¸‹
+//1ï¼ŒKEY0æŒ‰ä¸‹
+//2ï¼ŒKEY1æŒ‰ä¸‹
+//3ï¼ŒKEY2æŒ‰ä¸‹ 
+//4ï¼ŒKEY3æŒ‰ä¸‹ WK_UP
+//æ³¨æ„æ­¤å‡½æ•°æœ‰å“åº”ä¼˜å…ˆçº§,KEY0>KEY1>KEY2>KEY3!!
 u8 KEY_Scan(u8 mode)
 {	 
-	static u8 key_up=1;//°´¼ü°´ËÉ¿ª±êÖ¾
-	if(mode)key_up=1;  //Ö§³ÖÁ¬°´		  
+	static u8 key_up=1;//æŒ‰é”®æŒ‰æ¾å¼€æ ‡å¿—
+	if(mode)key_up=1;  //æ”¯æŒè¿æŒ‰		  
 	if(key_up&&(KEY0==0||KEY1==0||KEY2==0||WK_UP==1))
 	{
-		delay_ms(10);//È¥¶¶¶¯ 
+		delay_ms(10);//å»æŠ–åŠ¨ 
 		key_up=0;
 		if(KEY0==0)return KEY0_PRES;
 		else if(KEY1==0)return KEY1_PRES;
 		else if(KEY2==0)return KEY2_PRES;
 		else if(WK_UP==1)return WKUP_PRES;
 	}else if(KEY0==1&&KEY1==1&&KEY2==1&&WK_UP==0)key_up=1; 	    
- 	return 0;// ÎŞ°´¼ü°´ÏÂ
+ 	return 0;// æ— æŒ‰é”®æŒ‰ä¸‹
 }

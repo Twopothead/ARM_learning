@@ -20,11 +20,15 @@
 #include "touch.h"
 
 
-
- 
+#include "font.h"
+// extern const unsigned char asc2_1206[95][12];
 
 static u8 fac_us = 0;  //us延时倍乘数
 static u16 fac_ms = 0; //ms
+
+extern const unsigned char asc2_1206[95][12];
+extern const unsigned char asc2_1608[95][16];
+extern const unsigned char asc2_2412[95][36];
 
 /************************************************
  ALIENTEK战舰STM32开发板实验27
@@ -200,27 +204,30 @@ void ctp_test(void)
 
 
 
- int main(void)
- {	
- 		    
+ 
+
+
+int main(void)
+{
+
+
 	delay_init();	    	 //延时函数初始化	  
   NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置中断优先级分组为组2：2位抢占优先级，2位响应优先级
 	uart_init(115200);	 	//串口初始化为115200
 	 
- 	// LED_Init();			     //LED端口初始化
-	LCD_Init();	
-	// KEY_Init();	 	
- // 	tp_dev.init();
-	 
- 	// POINT_COLOR=RED;//设置字体为红色 
-	// LCD_ShowString(60,50,200,16,16,"WarShip STM32");	
-	// LCD_ShowString(60,70,200,16,16,"TOUCH TEST");	
-	// LCD_ShowString(60,90,200,16,16,"ATOM@ALIENTEK");
-	// LCD_ShowString(60,110,200,16,16,"2015/1/15");
- //   	LCD_ShowString(60,130,200,16,16,"Press KEY0 to Adjust");	
- //   	if(tp_dev.touchtype!=0XFF)LCD_ShowString(60,130,200,16,16,"Press KEY0 to Adjust");//电阻屏才显示
-	delay_ms(1500);
-	Load_Drow_Dialog();	 	
-	if(tp_dev.touchtype&0X80)ctp_test();	//电容屏测试
-	else rtp_test(); 			
- }
+ 	LED_Init();			     //LED端口初始化
+
+ 	
+	// LCD_Init();
+	//!!!!!!!!!!!!!!LCD_Init does not work!!!!!!!!!!!!! 
+	#include <fuck.txt>
+	/****************************************************/
+ 	LCD_Clear(GREEN);
+ 	POINT_COLOR=RED;//设置字体为红色 
+	LCD_ShowString(60,50,200,16,16,"please fuck my asshole");
+	delay_ms(1500);	
+	// LCD_Clear(YELLOW);
+	tp_dev.init();
+}
+
+

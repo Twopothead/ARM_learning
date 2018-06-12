@@ -6,25 +6,25 @@
 #include "string.h" 
 #include "lcd.h" 
 //////////////////////////////////////////////////////////////////////////////////	 
-//±¾³ÌÐòÖ»¹©Ñ§Ï°Ê¹ÓÃ£¬Î´¾­×÷ÕßÐí¿É£¬²»µÃÓÃÓÚÆäËüÈÎºÎÓÃÍ¾
-//ALIENTEK STM32¿ª·¢°å
-//4.3´çµçÈÝ´¥ÃþÆÁ-GT9147 Çý¶¯´úÂë	   
-//ÕýµãÔ­×Ó@ALIENTEK
-//¼¼ÊõÂÛÌ³:www.openedv.com
-//´´½¨ÈÕÆÚ:2015/1/15
-//°æ±¾£ºV1.1
-//°æÈ¨ËùÓÐ£¬µÁ°æ±Ø¾¿¡£
-//Copyright(C) ¹ãÖÝÊÐÐÇÒíµç×Ó¿Æ¼¼ÓÐÏÞ¹«Ë¾ 2014-2024
+//æœ¬ç¨‹åºåªä¾›å­¦ä¹ ä½¿ç”¨ï¼Œæœªç»ä½œè€…è®¸å¯ï¼Œä¸å¾—ç”¨äºŽå…¶å®ƒä»»ä½•ç”¨é€”
+//ALIENTEK STM32å¼€å‘æ¿
+//4.3å¯¸ç”µå®¹è§¦æ‘¸å±-GT9147 é©±åŠ¨ä»£ç 	   
+//æ­£ç‚¹åŽŸå­@ALIENTEK
+//æŠ€æœ¯è®ºå›:www.openedv.com
+//åˆ›å»ºæ—¥æœŸ:2015/1/15
+//ç‰ˆæœ¬ï¼šV1.1
+//ç‰ˆæƒæ‰€æœ‰ï¼Œç›—ç‰ˆå¿…ç©¶ã€‚
+//Copyright(C) å¹¿å·žå¸‚æ˜Ÿç¿¼ç”µå­ç§‘æŠ€æœ‰é™å…¬å¸ 2014-2024
 //All rights reserved		
 //*******************************************************************************
-//ÐÞ¸ÄÐÅÏ¢
+//ä¿®æ”¹ä¿¡æ¯
 //V1.1 20150320
-//ÐÞ¸ÄGT9147_Scanº¯Êý,Ìí¼Ó¶Ô·Ç·¨Êý¾ÝµÄ´¦Àí,·ÀÖ¹·Ç·¨Êý¾Ý¸ÉÈÅ
+//ä¿®æ”¹GT9147_Scanå‡½æ•°,æ·»åŠ å¯¹éžæ³•æ•°æ®çš„å¤„ç†,é˜²æ­¢éžæ³•æ•°æ®å¹²æ‰°
 ////////////////////////////////////////////////////////////////////////////////// 
 
-//GT9147ÅäÖÃ²ÎÊý±í
-//µÚÒ»¸ö×Ö½ÚÎª°æ±¾ºÅ(0X60),±ØÐë±£Ö¤ÐÂµÄ°æ±¾ºÅ´óÓÚµÈÓÚGT9147ÄÚ²¿
-//flashÔ­ÓÐ°æ±¾ºÅ,²Å»á¸üÐÂÅäÖÃ.
+//GT9147é…ç½®å‚æ•°è¡¨
+//ç¬¬ä¸€ä¸ªå­—èŠ‚ä¸ºç‰ˆæœ¬å·(0X60),å¿…é¡»ä¿è¯æ–°çš„ç‰ˆæœ¬å·å¤§äºŽç­‰äºŽGT9147å†…éƒ¨
+//flashåŽŸæœ‰ç‰ˆæœ¬å·,æ‰ä¼šæ›´æ–°é…ç½®.
 const u8 GT9147_CFG_TBL[]=
 { 
 	0X60,0XE0,0X01,0X20,0X03,0X05,0X35,0X00,0X02,0X08,
@@ -47,127 +47,127 @@ const u8 GT9147_CFG_TBL[]=
 	0X00,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,0XFF,
 	0XFF,0XFF,0XFF,0XFF,
 };  
-//·¢ËÍGT9147ÅäÖÃ²ÎÊý
-//mode:0,²ÎÊý²»±£´æµ½flash
-//     1,²ÎÊý±£´æµ½flash
+//å‘é€GT9147é…ç½®å‚æ•°
+//mode:0,å‚æ•°ä¸ä¿å­˜åˆ°flash
+//     1,å‚æ•°ä¿å­˜åˆ°flash
 u8 GT9147_Send_Cfg(u8 mode)
 {
 	u8 buf[2];
 	u8 i=0;
 	buf[0]=0;
-	buf[1]=mode;	//ÊÇ·ñÐ´Èëµ½GT9147 FLASH?  ¼´ÊÇ·ñµôµç±£´æ
-	for(i=0;i<sizeof(GT9147_CFG_TBL);i++)buf[0]+=GT9147_CFG_TBL[i];//¼ÆËãÐ£ÑéºÍ
+	buf[1]=mode;	//æ˜¯å¦å†™å…¥åˆ°GT9147 FLASH?  å³æ˜¯å¦æŽ‰ç”µä¿å­˜
+	for(i=0;i<sizeof(GT9147_CFG_TBL);i++)buf[0]+=GT9147_CFG_TBL[i];//è®¡ç®—æ ¡éªŒå’Œ
     buf[0]=(~buf[0])+1;
-	GT9147_WR_Reg(GT_CFGS_REG,(u8*)GT9147_CFG_TBL,sizeof(GT9147_CFG_TBL));//·¢ËÍ¼Ä´æÆ÷ÅäÖÃ
-	GT9147_WR_Reg(GT_CHECK_REG,buf,2);//Ð´ÈëÐ£ÑéºÍ,ºÍÅäÖÃ¸üÐÂ±ê¼Ç
+	GT9147_WR_Reg(GT_CFGS_REG,(u8*)GT9147_CFG_TBL,sizeof(GT9147_CFG_TBL));//å‘é€å¯„å­˜å™¨é…ç½®
+	GT9147_WR_Reg(GT_CHECK_REG,buf,2);//å†™å…¥æ ¡éªŒå’Œ,å’Œé…ç½®æ›´æ–°æ ‡è®°
 	return 0;
 } 
-//ÏòGT9147Ð´ÈëÒ»´ÎÊý¾Ý
-//reg:ÆðÊ¼¼Ä´æÆ÷µØÖ·
-//buf:Êý¾Ý»º»º´æÇø
-//len:Ð´Êý¾Ý³¤¶È
-//·µ»ØÖµ:0,³É¹¦;1,Ê§°Ü.
+//å‘GT9147å†™å…¥ä¸€æ¬¡æ•°æ®
+//reg:èµ·å§‹å¯„å­˜å™¨åœ°å€
+//buf:æ•°æ®ç¼“ç¼“å­˜åŒº
+//len:å†™æ•°æ®é•¿åº¦
+//è¿”å›žå€¼:0,æˆåŠŸ;1,å¤±è´¥.
 u8 GT9147_WR_Reg(u16 reg,u8 *buf,u8 len)
 {
 	u8 i;
 	u8 ret=0;
 	CT_IIC_Start();	
- 	CT_IIC_Send_Byte(GT_CMD_WR);   	//·¢ËÍÐ´ÃüÁî 	 
+ 	CT_IIC_Send_Byte(GT_CMD_WR);   	//å‘é€å†™å‘½ä»¤ 	 
 	CT_IIC_Wait_Ack();
-	CT_IIC_Send_Byte(reg>>8);   	//·¢ËÍ¸ß8Î»µØÖ·
+	CT_IIC_Send_Byte(reg>>8);   	//å‘é€é«˜8ä½åœ°å€
 	CT_IIC_Wait_Ack(); 	 										  		   
-	CT_IIC_Send_Byte(reg&0XFF);   	//·¢ËÍµÍ8Î»µØÖ·
+	CT_IIC_Send_Byte(reg&0XFF);   	//å‘é€ä½Ž8ä½åœ°å€
 	CT_IIC_Wait_Ack();  
 	for(i=0;i<len;i++)
 	{	   
-    	CT_IIC_Send_Byte(buf[i]);  	//·¢Êý¾Ý
+    	CT_IIC_Send_Byte(buf[i]);  	//å‘æ•°æ®
 		ret=CT_IIC_Wait_Ack();
 		if(ret)break;  
 	}
-    CT_IIC_Stop();					//²úÉúÒ»¸öÍ£Ö¹Ìõ¼þ	    
+    CT_IIC_Stop();					//äº§ç”Ÿä¸€ä¸ªåœæ­¢æ¡ä»¶	    
 	return ret; 
 }
-//´ÓGT9147¶Á³öÒ»´ÎÊý¾Ý
-//reg:ÆðÊ¼¼Ä´æÆ÷µØÖ·
-//buf:Êý¾Ý»º»º´æÇø
-//len:¶ÁÊý¾Ý³¤¶È			  
+//ä»ŽGT9147è¯»å‡ºä¸€æ¬¡æ•°æ®
+//reg:èµ·å§‹å¯„å­˜å™¨åœ°å€
+//buf:æ•°æ®ç¼“ç¼“å­˜åŒº
+//len:è¯»æ•°æ®é•¿åº¦			  
 void GT9147_RD_Reg(u16 reg,u8 *buf,u8 len)
 {
 	u8 i; 
  	CT_IIC_Start();	
- 	CT_IIC_Send_Byte(GT_CMD_WR);   //·¢ËÍÐ´ÃüÁî 	 
+ 	CT_IIC_Send_Byte(GT_CMD_WR);   //å‘é€å†™å‘½ä»¤ 	 
 	CT_IIC_Wait_Ack();
- 	CT_IIC_Send_Byte(reg>>8);   	//·¢ËÍ¸ß8Î»µØÖ·
+ 	CT_IIC_Send_Byte(reg>>8);   	//å‘é€é«˜8ä½åœ°å€
 	CT_IIC_Wait_Ack(); 	 										  		   
- 	CT_IIC_Send_Byte(reg&0XFF);   	//·¢ËÍµÍ8Î»µØÖ·
+ 	CT_IIC_Send_Byte(reg&0XFF);   	//å‘é€ä½Ž8ä½åœ°å€
 	CT_IIC_Wait_Ack();  
  	CT_IIC_Start();  	 	   
-	CT_IIC_Send_Byte(GT_CMD_RD);   //·¢ËÍ¶ÁÃüÁî		   
+	CT_IIC_Send_Byte(GT_CMD_RD);   //å‘é€è¯»å‘½ä»¤		   
 	CT_IIC_Wait_Ack();	   
 	for(i=0;i<len;i++)
 	{	   
-    	buf[i]=CT_IIC_Read_Byte(i==(len-1)?0:1); //·¢Êý¾Ý	  
+    	buf[i]=CT_IIC_Read_Byte(i==(len-1)?0:1); //å‘æ•°æ®	  
 	} 
-    CT_IIC_Stop();//²úÉúÒ»¸öÍ£Ö¹Ìõ¼þ    
+    CT_IIC_Stop();//äº§ç”Ÿä¸€ä¸ªåœæ­¢æ¡ä»¶    
 } 
-//³õÊ¼»¯GT9147´¥ÃþÆÁ
-//·µ»ØÖµ:0,³õÊ¼»¯³É¹¦;1,³õÊ¼»¯Ê§°Ü 
+//åˆå§‹åŒ–GT9147è§¦æ‘¸å±
+//è¿”å›žå€¼:0,åˆå§‹åŒ–æˆåŠŸ;1,åˆå§‹åŒ–å¤±è´¥ 
 u8 GT9147_Init(void)
 {
 	u8 temp[5];  
  	GPIO_InitTypeDef  GPIO_InitStructure;	
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);	 //Ê¹ÄÜPF¶Ë¿ÚÊ±ÖÓ
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOF, ENABLE);	 //ä½¿èƒ½PFç«¯å£æ—¶é’Ÿ
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;				 // PF11¶Ë¿ÚÅäÖÃ
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //ÍÆÍìÊä³ö
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;				 // PF11ç«¯å£é…ç½®
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //æŽ¨æŒ½è¾“å‡º
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-	GPIO_Init(GPIOF, &GPIO_InitStructure);//PF11ÍÆÍìÊä³ö
-	GPIO_SetBits(GPIOF,GPIO_Pin_1);//ÉÏÀ­
+	GPIO_Init(GPIOF, &GPIO_InitStructure);//PF11æŽ¨æŒ½è¾“å‡º
+	GPIO_SetBits(GPIOF,GPIO_Pin_1);//ä¸Šæ‹‰
 		
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;				 // PB2¶Ë¿ÚÅäÖÃ
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 		 //ÉÏÀ­ÊäÈë
-	GPIO_Init(GPIOF, &GPIO_InitStructure);//PF10ÉÏÀ­ÊäÈë
-	GPIO_SetBits(GPIOF,GPIO_Pin_10);//ÉÏÀ­		
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;				 // PB2ç«¯å£é…ç½®
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPU; 		 //ä¸Šæ‹‰è¾“å…¥
+	GPIO_Init(GPIOF, &GPIO_InitStructure);//PF10ä¸Šæ‹‰è¾“å…¥
+	GPIO_SetBits(GPIOF,GPIO_Pin_10);//ä¸Šæ‹‰		
 	
  
-	CT_IIC_Init();      	//³õÊ¼»¯µçÈÝÆÁµÄI2C×ÜÏß  
-	GT_RST=0;				//¸´Î»
+	CT_IIC_Init();      	//åˆå§‹åŒ–ç”µå®¹å±çš„I2Cæ€»çº¿  
+	GT_RST=0;				//å¤ä½
 	delay_ms(10);
- 	GT_RST=1;				//ÊÍ·Å¸´Î» 
+ 	GT_RST=1;				//é‡Šæ”¾å¤ä½ 
 	delay_ms(10);
  
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;				 // PB2¶Ë¿ÚÅäÖÃ
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 		 //ÏÂÀ­ÊäÈë
-	GPIO_Init(GPIOF, &GPIO_InitStructure);//PF10ÏÂÀ­ÊäÈë
-	GPIO_ResetBits(GPIOF,GPIO_Pin_10);//ÏÂÀ­	
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;				 // PB2ç«¯å£é…ç½®
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IPD; 		 //ä¸‹æ‹‰è¾“å…¥
+	GPIO_Init(GPIOF, &GPIO_InitStructure);//PF10ä¸‹æ‹‰è¾“å…¥
+	GPIO_ResetBits(GPIOF,GPIO_Pin_10);//ä¸‹æ‹‰	
 	
 	
 	delay_ms(100);  
-	GT9147_RD_Reg(GT_PID_REG,temp,4);	//¶ÁÈ¡²úÆ·ID
+	GT9147_RD_Reg(GT_PID_REG,temp,4);	//è¯»å–äº§å“ID
 	temp[4]=0;
-	printf("CTP ID:%s\r\n",temp);		//´òÓ¡ID
+	printf("CTP ID:%s\r\n",temp);		//æ‰“å°ID
 	if(strcmp((char*)temp,"9147")==0)	//ID==9147
 	{
 		temp[0]=0X02;			
-		GT9147_WR_Reg(GT_CTRL_REG,temp,1);//Èí¸´Î»GT9147
- 		GT9147_RD_Reg(GT_CFGS_REG,temp,1);//¶ÁÈ¡GT_CFGS_REG¼Ä´æÆ÷
-		if(temp[0]<0X60)//Ä¬ÈÏ°æ±¾±È½ÏµÍ,ÐèÒª¸üÐÂflashÅäÖÃ
+		GT9147_WR_Reg(GT_CTRL_REG,temp,1);//è½¯å¤ä½GT9147
+ 		GT9147_RD_Reg(GT_CFGS_REG,temp,1);//è¯»å–GT_CFGS_REGå¯„å­˜å™¨
+		if(temp[0]<0X60)//é»˜è®¤ç‰ˆæœ¬æ¯”è¾ƒä½Ž,éœ€è¦æ›´æ–°flashé…ç½®
 		{
 			printf("Default Ver:%d\r\n",temp[0]);
-			GT9147_Send_Cfg(1);//¸üÐÂ²¢±£´æÅäÖÃ
+			GT9147_Send_Cfg(1);//æ›´æ–°å¹¶ä¿å­˜é…ç½®
 		}
 		delay_ms(10);
 		temp[0]=0X00;	 
-		GT9147_WR_Reg(GT_CTRL_REG,temp,1);	//½áÊø¸´Î»   	
+		GT9147_WR_Reg(GT_CTRL_REG,temp,1);	//ç»“æŸå¤ä½   	
 		return 0;
 	} 
 	return 1;
 }
 const u16 GT9147_TPX_TBL[5]={GT_TP1_REG,GT_TP2_REG,GT_TP3_REG,GT_TP4_REG,GT_TP5_REG};
-//É¨Ãè´¥ÃþÆÁ(²ÉÓÃ²éÑ¯·½Ê½)
-//mode:0,Õý³£É¨Ãè.
-//·µ»ØÖµ:µ±Ç°´¥ÆÁ×´Ì¬.
-//0,´¥ÆÁÎÞ´¥Ãþ;1,´¥ÆÁÓÐ´¥Ãþ
+//æ‰«æè§¦æ‘¸å±(é‡‡ç”¨æŸ¥è¯¢æ–¹å¼)
+//mode:0,æ­£å¸¸æ‰«æ.
+//è¿”å›žå€¼:å½“å‰è§¦å±çŠ¶æ€.
+//0,è§¦å±æ— è§¦æ‘¸;1,è§¦å±æœ‰è§¦æ‘¸
 u8 GT9147_Scan(u8 mode)
 {
 	u8 buf[4];
@@ -175,29 +175,29 @@ u8 GT9147_Scan(u8 mode)
 	u8 res=0;
 	u8 temp;
 	u8 tempsta;
- 	static u8 t=0;//¿ØÖÆ²éÑ¯¼ä¸ô,´Ó¶ø½µµÍCPUÕ¼ÓÃÂÊ   
+ 	static u8 t=0;//æŽ§åˆ¶æŸ¥è¯¢é—´éš”,ä»Žè€Œé™ä½ŽCPUå ç”¨çŽ‡   
 	t++;
-	if((t%10)==0||t<10)//¿ÕÏÐÊ±,Ã¿½øÈë10´ÎCTP_Scanº¯Êý²Å¼ì²â1´Î,´Ó¶ø½ÚÊ¡CPUÊ¹ÓÃÂÊ
+	if((t%10)==0||t<10)//ç©ºé—²æ—¶,æ¯è¿›å…¥10æ¬¡CTP_Scanå‡½æ•°æ‰æ£€æµ‹1æ¬¡,ä»Žè€ŒèŠ‚çœCPUä½¿ç”¨çŽ‡
 	{
-		GT9147_RD_Reg(GT_GSTID_REG,&mode,1);	//¶ÁÈ¡´¥ÃþµãµÄ×´Ì¬  
+		GT9147_RD_Reg(GT_GSTID_REG,&mode,1);	//è¯»å–è§¦æ‘¸ç‚¹çš„çŠ¶æ€  
  		if(mode&0X80&&((mode&0XF)<6))
 		{
 			temp=0;
-			GT9147_WR_Reg(GT_GSTID_REG,&temp,1);//Çå±êÖ¾ 		
+			GT9147_WR_Reg(GT_GSTID_REG,&temp,1);//æ¸…æ ‡å¿— 		
 		}		
 		if((mode&0XF)&&((mode&0XF)<6))
 		{
-			temp=0XFF<<(mode&0XF);		//½«µãµÄ¸öÊý×ª»»Îª1µÄÎ»Êý,Æ¥Åätp_dev.sta¶¨Òå 
-			tempsta=tp_dev.sta;			//±£´æµ±Ç°µÄtp_dev.staÖµ
+			temp=0XFF<<(mode&0XF);		//å°†ç‚¹çš„ä¸ªæ•°è½¬æ¢ä¸º1çš„ä½æ•°,åŒ¹é…tp_dev.staå®šä¹‰ 
+			tempsta=tp_dev.sta;			//ä¿å­˜å½“å‰çš„tp_dev.staå€¼
 			tp_dev.sta=(~temp)|TP_PRES_DOWN|TP_CATH_PRES; 
-			tp_dev.x[4]=tp_dev.x[0];	//±£´æ´¥µã0µÄÊý¾Ý
+			tp_dev.x[4]=tp_dev.x[0];	//ä¿å­˜è§¦ç‚¹0çš„æ•°æ®
 			tp_dev.y[4]=tp_dev.y[0];
 			for(i=0;i<5;i++)
 			{
-				if(tp_dev.sta&(1<<i))	//´¥ÃþÓÐÐ§?
+				if(tp_dev.sta&(1<<i))	//è§¦æ‘¸æœ‰æ•ˆ?
 				{
-					GT9147_RD_Reg(GT9147_TPX_TBL[i],buf,4);	//¶ÁÈ¡XY×ø±êÖµ
-					if(tp_dev.touchtype&0X01)//ºáÆÁ
+					GT9147_RD_Reg(GT9147_TPX_TBL[i],buf,4);	//è¯»å–XYåæ ‡å€¼
+					if(tp_dev.touchtype&0X01)//æ¨ªå±
 					{
 						tp_dev.y[i]=((u16)buf[1]<<8)+buf[0];
 						tp_dev.x[i]=800-(((u16)buf[3]<<8)+buf[2]);
@@ -210,36 +210,36 @@ u8 GT9147_Scan(u8 mode)
 				}			
 			} 
 			res=1;
-			if(tp_dev.x[0]>lcddev.width||tp_dev.y[0]>lcddev.height)//·Ç·¨Êý¾Ý(×ø±ê³¬³öÁË)
+			if(tp_dev.x[0]>lcddev.width||tp_dev.y[0]>lcddev.height)//éžæ³•æ•°æ®(åæ ‡è¶…å‡ºäº†)
 			{ 
-				if((mode&0XF)>1)		//ÓÐÆäËûµãÓÐÊý¾Ý,Ôò¸´µÚ¶þ¸ö´¥µãµÄÊý¾Ýµ½µÚÒ»¸ö´¥µã.
+				if((mode&0XF)>1)		//æœ‰å…¶ä»–ç‚¹æœ‰æ•°æ®,åˆ™å¤ç¬¬äºŒä¸ªè§¦ç‚¹çš„æ•°æ®åˆ°ç¬¬ä¸€ä¸ªè§¦ç‚¹.
 				{
 					tp_dev.x[0]=tp_dev.x[1];
 					tp_dev.y[0]=tp_dev.y[1];
-					t=0;				//´¥·¢Ò»´Î,Ôò»á×îÉÙÁ¬Ðø¼à²â10´Î,´Ó¶øÌá¸ßÃüÖÐÂÊ
-				}else					//·Ç·¨Êý¾Ý,ÔòºöÂÔ´Ë´ÎÊý¾Ý(»¹Ô­Ô­À´µÄ)  
+					t=0;				//è§¦å‘ä¸€æ¬¡,åˆ™ä¼šæœ€å°‘è¿žç»­ç›‘æµ‹10æ¬¡,ä»Žè€Œæé«˜å‘½ä¸­çŽ‡
+				}else					//éžæ³•æ•°æ®,åˆ™å¿½ç•¥æ­¤æ¬¡æ•°æ®(è¿˜åŽŸåŽŸæ¥çš„)  
 				{
 					tp_dev.x[0]=tp_dev.x[4];
 					tp_dev.y[0]=tp_dev.y[4];
 					mode=0X80;		
-					tp_dev.sta=tempsta;	//»Ö¸´tp_dev.sta
+					tp_dev.sta=tempsta;	//æ¢å¤tp_dev.sta
 				}
-			}else t=0;					//´¥·¢Ò»´Î,Ôò»á×îÉÙÁ¬Ðø¼à²â10´Î,´Ó¶øÌá¸ßÃüÖÐÂÊ
+			}else t=0;					//è§¦å‘ä¸€æ¬¡,åˆ™ä¼šæœ€å°‘è¿žç»­ç›‘æµ‹10æ¬¡,ä»Žè€Œæé«˜å‘½ä¸­çŽ‡
 		}
 	}
-	if((mode&0X8F)==0X80)//ÎÞ´¥Ãþµã°´ÏÂ
+	if((mode&0X8F)==0X80)//æ— è§¦æ‘¸ç‚¹æŒ‰ä¸‹
 	{ 
-		if(tp_dev.sta&TP_PRES_DOWN)	//Ö®Ç°ÊÇ±»°´ÏÂµÄ
+		if(tp_dev.sta&TP_PRES_DOWN)	//ä¹‹å‰æ˜¯è¢«æŒ‰ä¸‹çš„
 		{
-			tp_dev.sta&=~(1<<7);	//±ê¼Ç°´¼üËÉ¿ª
-		}else						//Ö®Ç°¾ÍÃ»ÓÐ±»°´ÏÂ
+			tp_dev.sta&=~(1<<7);	//æ ‡è®°æŒ‰é”®æ¾å¼€
+		}else						//ä¹‹å‰å°±æ²¡æœ‰è¢«æŒ‰ä¸‹
 		{ 
 			tp_dev.x[0]=0xffff;
 			tp_dev.y[0]=0xffff;
-			tp_dev.sta&=0XE0;	//Çå³ýµãÓÐÐ§±ê¼Ç	
+			tp_dev.sta&=0XE0;	//æ¸…é™¤ç‚¹æœ‰æ•ˆæ ‡è®°	
 		}	 
 	} 	
-	if(t>240)t=10;//ÖØÐÂ´Ó10¿ªÊ¼¼ÆÊý
+	if(t>240)t=10;//é‡æ–°ä»Ž10å¼€å§‹è®¡æ•°
 	return res;
 }
 

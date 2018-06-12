@@ -1,5 +1,5 @@
-#ifndef __LCD_H
-#define __LCD_H		
+#ifndef LCD_H
+#define LCD_H		
 #include "sys.h"	 
 #include "stdlib.h"
 //////////////////////////////////////////////////////////////////////////////////	 
@@ -152,6 +152,110 @@ typedef struct
 
 #define LGRAYBLUE        0XA651 //浅灰蓝色(中间层颜色)
 #define LBBLUE           0X2B12 //浅棕蓝色(选择条目的反色)
+
+
+#include "stm32f10x.h"
+
+/* LCD Registers */
+#define	IR				//Index Register
+#define	SR				//Status Read
+						
+#define R00h	0x00	//Drive Code Read (The device code “9325”h is read out when read this register)
+#define R01h    0x01	//Drive Output Control 1
+#define R02h    0x02	//LCD Drive Control
+#define R03h    0x03	//Entry Mode
+#define R04h    0x04	//Resize Control
+						
+#define R07h   	0x07	//Display Contraol 1
+#define R08h   	0x08	//Display Contraol 2
+#define R09h	0x09	//Display Contraol 3
+#define R0Ah    0x0A	//Display Contraol 4
+#define R0Ch 	0x0C	//RGB Display Interface Control 1 
+#define R0Dh    0x0D	//Frame Maker Position
+#define R0Fh   	0x0F 	//RGB Display Interface Control 2
+						
+#define R10h    0x10	//Power Contreol 1
+#define R11h    0x11	//Power Contreol 2
+#define R12h   	0x12	//Power Contreol 3
+#define R13h    0x13	//Power Contreol 4
+
+#define R20h	0x20	//Horizontal GRAM Address Set
+#define R21h    0x21	//Vertiacl GRAM Address Set
+#define R22h    0x22	//Write Data to GRAM
+#define R29h    0x29	//Power Control 7
+#define R2Bh    0x2B	//Frame Rate and Color Control
+
+#define R30h    0x30	//Gamma Control	1
+#define R31h    0x31	//Gamma Control	2
+#define R32h    0x32	//Gamma Control	3
+#define R33h    0x33	
+#define R34h    0x34
+#define R35h    0x35	//Gamma Control	4
+#define R36h    0x36	//Gamma Control	5
+#define R37h    0x37	//Gamma Control	6
+#define R38h   	0x38	//Gamma Control	7
+#define R39h    0x39	//Gamma Control	8
+#define R3Ah    0x3A
+#define R3Bh    0x3B
+#define	R3Ch	0x3C	//Gamma Control	9
+#define	R3Dh	0x3D	//Gamma Control	10
+#define R3Eh    0x3E
+#define R3Fh    0x3F
+
+#define R50h  	0x50	//Horizontal Address Star Position
+#define R51h    0x51	//Horizontal Address End Position
+#define R52h    0x52	//Vertical Address Star Position
+#define R53h    0x53	//Vertical Address End Position
+
+#define R60h    0x60	//Drive Output Control 2
+#define R61h   	0x61	//Base Image Dispaly Control
+#define R6Ah    0x6A	//Vertiacl Scroll Contraol
+
+#define R80h    0x80	//Partial Image 1 Display Position
+#define R81h    0x81	//Partial Image 1 Area (Star Line)
+#define R82h   	0x82	//Partial Image 1 Area (End Line)
+#define R83h    0x83	//Partial Image 2 Display Position
+#define R84h    0x84	//Partial Image 2 Area (Star Line)
+#define R85h   	0x85	//Partial Image 2 Area (End Line)
+
+#define R90h    0x90	//Panel Interface Control 1 
+#define R92h    0x92	//Panel Interface Control 2
+#define R93h    0x93
+#define R95h    0x95	//Panel Interface Control 3
+#define R97h    0x97
+#define R98h    0x98
+
+#define	RA1h	0xA1	//OTP VCM Programming Control
+#define	RA2h	0xA2	//OTP VCM Status and Enable 
+#define	RA5h	0xA5	//OTP VCM Programming ID Key
+
+#define RE5h	0xE5
+/* LCD color */
+#define White		0xFFFF
+#define Black       0x0000
+#define Grey        0xF7DE
+#define Slive		0xC618	
+#define Blue        0x001F
+#define Red         0xF800
+#define Green       0x07E0
+#define Magenta     0xF81F
+#define Cyan        0x7FFF
+#define Yellow      0xFFE0
+
+/**
+  **LCD连溣至Bank1_NORSRAM1,	A16-LCD_RS】
+  **NE1为片选信号	
+  */
+#define LCD_REG_Addr 	(*(( __IO uint16_t *)(0x60000000 | 0x0C000000)))
+#define LCD_RAM_Addr  	(*(( __IO uint16_t *)(0x60000000 | 0x0C000002)))
+
+#define LCD_RESET_H()	GPIO_SetBits(GPIOD, GPIO_Pin_3);
+#define LCD_RESET_L()	GPIO_ResetBits(GPIOD, GPIO_Pin_3);
+
+#define LCD_GRAM_Prepare()	LCD_REG_Addr = R22h;
+
+
+
 	    															  
 void LCD_Init(void);													   	//初始化
 void LCD_DisplayOn(void);													//开显示
@@ -195,6 +299,9 @@ void LCD_Set_Window(u16 sx,u16 sy,u16 width,u16 height);	//设置窗口
 #define SSD_HPS	(SSD_HOR_BACK_PORCH)
 #define SSD_VT 	(SSD_VER_RESOLUTION+SSD_VER_BACK_PORCH+SSD_VER_FRONT_PORCH)
 #define SSD_VPS (SSD_VER_BACK_PORCH)
+
+//////////////////////////////////////////////////////////////////////////////////////
+void 	LCD_ConfigDispWindow(uint16_t HSA, uint16_t HEA, uint16_t VSA, uint16_t VEA);
 
 #endif  
 	 
